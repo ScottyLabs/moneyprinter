@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import requests
+import secret
 
-api_key = ""
+api_key = secret.api_key
 domain = "https://api.mailgun.net/v3/sandbox0d2217c926064a2d944389872026616f.mailgun.org"
 
 def send_simple_message ():
