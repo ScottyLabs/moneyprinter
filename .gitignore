@@ -130,3 +130,6 @@ dmypy.json
 
 #api key
 secret.py
+
+#google service account
+scotty-353808-bc21c60f8263.json
