@@ -58,8 +58,7 @@ def resetStatus (sheet, df):
 
 
 def sendoutreach (request) :
-    emailingList = getOutreachEmail(df)
-    response = send_template_message(emailingList, api_key, domain)
+    response = send_template_message(getOutreachEmail(df), api_key, domain)
     resetStatus (outreach, df)
     return checkValidStatusCode (response)
 
