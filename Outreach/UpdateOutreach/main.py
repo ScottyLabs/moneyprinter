@@ -61,7 +61,7 @@ def updateNegotiation (request):
         rowdf = pd.DataFrame(newrow,index=[0])
         negotiation_df = pd.concat([negotiation_df, rowdf], ignore_index=True)
         
-        
+    negotiation.clear()
     negotiation.set_dataframe(negotiation_df,(1,1))
     removeNegotiationfromOutreach (outreach_df)
 
