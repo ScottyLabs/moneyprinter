@@ -65,3 +65,5 @@ def updateNegotiation (request):
     negotiation.set_dataframe(negotiation_df,(1,1))
     removeNegotiationfromOutreach (outreach_df)
 
+    return "Successfully updated Negotiation"
+
