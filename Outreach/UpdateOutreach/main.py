@@ -18,10 +18,8 @@ sh = gc.open('Sponsor Outreach')
 outreach = sh[1]
 negotiation = sh[2]
 
-
 api_key = os.environ.get('mailgun_api_key')
 domain = os.environ.get('mailgun_domain')
-emailaddress = os.environ.get('mailgun_address')
 
 
 # In[3]:

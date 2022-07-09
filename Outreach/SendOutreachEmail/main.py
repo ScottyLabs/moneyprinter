@@ -4,21 +4,20 @@ import requests
 from SendOperations import send_simple_message , send_template_message
 import os
 
-
-
 # In[2]:
 
 gc = pygsheets.authorize(service_file = 'scottylabssponsor-9ee3dc6d59b9.json')
 sh = gc.open('Sponsor Outreach')
 outreach = sh[1]
-api_key = os.environ.get('mailgun_api_key')
-domain = os.environ.get('mailgun_domain')
-template = "standard"
+
 
 # In[3]:
 
 
-df = outreach.get_as_df()
+def env_vars(request, key):
+    return str(os.environ.get(key, 'Specified environment variable is not set.'))
+
+
 
 def getOutreachEmail (df):
     filtereddf = df[(df["Status"] == "Outreach") & (df["Send New Email"] == "Yes")]
@@ -48,10 +47,14 @@ def resetStatus (sheet, df):
 
 
 def sendoutreach (request) :
-    response = send_template_message(getOutreachEmail(df), api_key, domain, template)
+    df = outreach.get_as_df()
+    recipientsList = getOutreachEmail(df)
+    api_key = env_vars (request, 'mailgun_api_key')
+    domain = env_vars (request, 'mailgun_domain')
+    template = env_vars (request, 'template')    
+    response = send_template_message(recipientsList, api_key, domain, template)
     resetStatus (outreach, df)
     return checkValidStatusCode (response)
-
 
 
 

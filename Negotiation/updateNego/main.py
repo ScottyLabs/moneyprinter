@@ -7,20 +7,16 @@
 import pygsheets
 import pandas as pd
 import requests
-import secret
-from SendOperations import send_simple_message , send_template_message
+import os
 
 
 # In[2]:
 
 
-gc = pygsheets.authorize(service_file='scotty-353808-bc21c60f8263.json')
+gc = pygsheets.authorize(service_file = 'scottylabssponsor-9ee3dc6d59b9.json')
 sh = gc.open('Sponsor Outreach')
 negotiation = sh[2]
 deliverables = sh[3]
-api_key = secret.api_key
-domain = secret.domain
-
 
 # In[3]:
 
@@ -48,7 +44,7 @@ def removeConfirmedfromNego (nego_df):
 # In[5]:
 
 
-def updateConfirmed (request):
+def updateNegoDeliver (request):
     negotiation_df = negotiation.get_as_df()
     deliverables_df = deliverables.get_as_df()
     #get the negotiating rows
