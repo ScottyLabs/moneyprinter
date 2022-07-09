@@ -1,22 +1,33 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
 import pygsheets
 import pandas as pd
 import requests
+import secret
 from SendOperations import send_simple_message , send_template_message
-import os
+
 
 # In[2]:
 
-gc = pygsheets.authorize(service_file = 'scottylabssponsor-9ee3dc6d59b9.json')
+
+gc = pygsheets.authorize(service_file='scotty-353808-bc21c60f8263.json')
 sh = gc.open('Sponsor Outreach')
 outreach = sh[1]
+api_key = secret.api_key
+domain = secret.domain
 
 
 # In[3]:
 
 
-def env_vars(request, key):
-    return str(os.environ.get(key, 'Specified environment variable is not set.'))
+df = outreach.get_as_df()
 
+
+# In[5]:
 
 
 def getOutreachEmail (df):
@@ -47,17 +58,13 @@ def resetStatus (sheet, df):
 
 
 def sendoutreach (request) :
-    df = outreach.get_as_df()
-    recipientsList = getOutreachEmail(df)
-    if len(recipientsList) > 0:
-        api_key = env_vars (request, 'mailgun_api_key')
-        domain = env_vars (request, 'mailgun_domain')
-        template = env_vars (request, 'template')    
-        response = send_template_message(recipientsList, api_key, domain, template)
-        resetStatus (outreach, df)
-        return checkValidStatusCode (response)
-    else:
-        return "No emails to send!"
+    response = send_template_message(getOutreachEmail(df), api_key, domain)
+    resetStatus (outreach, df)
+    return checkValidStatusCode (response)
+
+
+# In[ ]:
+
 
 
 
