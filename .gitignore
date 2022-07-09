@@ -130,6 +130,11 @@ dmypy.json
 
 #api key
 secret.py
+main_secret.py
 
 #google service account
+scottylabssponsor-9ee3dc6d59b9.json
 scotty-353808-bc21c60f8263.json
+
+#all zip files
+*.zip

@@ -7,23 +7,22 @@
 import pygsheets
 import pandas as pd
 import requests
-import secret
-from SendOperations import send_simple_message , send_template_message
+import os
+
 
 
 # In[2]:
 
-
-gc = pygsheets.authorize(service_file='scotty-353808-bc21c60f8263.json')
+gc = pygsheets.authorize(service_file = 'scottylabssponsor-9ee3dc6d59b9.json')
 sh = gc.open('Sponsor Outreach')
 outreach = sh[1]
 negotiation = sh[2]
-api_key = secret.api_key
-domain = secret.domain
+
+api_key = os.environ.get('mailgun_api_key')
+domain = os.environ.get('mailgun_domain')
 
 
 # In[3]:
-
 
 def makeNewRow (row, negotiation_cols_list, filtered_cols_list):
     result = {}
@@ -48,7 +47,7 @@ def removeNegotiationfromOutreach (outreach_df):
 # In[5]:
 
 
-def updateNegotiation (request):
+def updateOutreachNego (request):
     outreach_df = outreach.get_as_df()
     negotiation_df = negotiation.get_as_df()
     #get the negotiating rows
