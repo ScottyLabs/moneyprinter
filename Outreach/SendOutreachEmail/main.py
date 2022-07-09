@@ -7,19 +7,20 @@
 import pygsheets
 import pandas as pd
 import requests
-import secret
 from SendOperations import send_simple_message , send_template_message
+import os
+
 
 
 # In[2]:
 
-
-gc = pygsheets.authorize(service_file='scotty-353808-bc21c60f8263.json')
+gc = pygsheets.authorize(service_file = 'scottylabssponsor-9ee3dc6d59b9.json')
 sh = gc.open('Sponsor Outreach')
 outreach = sh[1]
-api_key = secret.api_key
-domain = secret.domain
-
+api_key = os.environ.get('mailgun_api_key')
+domain = os.environ.get('mailgun_domain')
+ouremailaddress = os.environ.get('mailgun_address')
+template = os.environ.get('email_template')
 
 # In[3]:
 
@@ -58,7 +59,7 @@ def resetStatus (sheet, df):
 
 
 def sendoutreach (request) :
-    response = send_template_message(getOutreachEmail(df), api_key, domain)
+    response = send_template_message(getOutreachEmail(df), api_key, domain, ouremailaddress, template)
     resetStatus (outreach, df)
     return checkValidStatusCode (response)
 

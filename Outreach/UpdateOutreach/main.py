@@ -7,16 +7,13 @@
 import pygsheets
 import pandas as pd
 import requests
-from SendOperations import send_simple_message , send_template_message
 import os
-import json
+
 
 
 # In[2]:
 
-SheetsCredentials = os.environ.get("ScottylabServiceAccountJson")
-inputCredentials = json.loads(SheetsCredentials)
-gc = pygsheets.authorize(inputCredentials)
+gc = pygsheets.authorize(service_file = 'scottylabssponsor-9ee3dc6d59b9.json')
 sh = gc.open('Sponsor Outreach')
 outreach = sh[1]
 negotiation = sh[2]
@@ -28,7 +25,6 @@ emailaddress = os.environ.get('mailgun_address')
 
 
 # In[3]:
-
 
 def makeNewRow (row, negotiation_cols_list, filtered_cols_list):
     result = {}
