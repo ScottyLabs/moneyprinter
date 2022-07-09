@@ -1,25 +1,24 @@
 #!/usr/bin/env python
 import requests
 
-def send_simple_message (recipientList, api_key, domain, sendDomain):
+def send_simple_message (recipientList, api_key, domain):
 	return requests.post(
-		f"{domain}/messages",
+		f"https://api.mailgun.net/v3/{domain}/messages",
 		auth=("api", api_key),
-		data={"from": f"Scottylabs <mailgun@{sendDomain}>",
+		data={"from": f"Scotty Labs <mailgun@{domain}>",
 			"to": recipientList,
 			"subject": "Hello",
 			"text": "Testing some Mailgun awesomness!"})
 
 
-def send_template_message (recipientList, api_key, domain, sendDomain, template):
+def send_template_message (recipientList, api_key, domain, template):
 	return requests.post(
-		f"{domain}/messages",
+		f"https://api.mailgun.net/v3/{domain}/messages",
 		auth=("api", api_key),
-		data={"from": f"Scottylabs <mailgun@{sendDomain}>",
+		data={"from": f"Scotty Labs <mailgun@{domain}>",
 			"to": recipientList,
 			"subject": "Hello from Scottylabs!",
-			f"template": {template},
-			"v:test" : "test"
+			"template": template
 			})
 
 

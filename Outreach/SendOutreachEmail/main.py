@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import pygsheets
 import pandas as pd
 import requests
@@ -19,17 +13,12 @@ sh = gc.open('Sponsor Outreach')
 outreach = sh[1]
 api_key = os.environ.get('mailgun_api_key')
 domain = os.environ.get('mailgun_domain')
-ouremailaddress = os.environ.get('mailgun_address')
-template = os.environ.get('email_template')
+template = "standard"
 
 # In[3]:
 
 
 df = outreach.get_as_df()
-
-
-# In[5]:
-
 
 def getOutreachEmail (df):
     filtereddf = df[(df["Status"] == "Outreach") & (df["Send New Email"] == "Yes")]
@@ -59,12 +48,9 @@ def resetStatus (sheet, df):
 
 
 def sendoutreach (request) :
-    response = send_template_message(getOutreachEmail(df), api_key, domain, ouremailaddress, template)
+    response = send_template_message(getOutreachEmail(df), api_key, domain, template)
     resetStatus (outreach, df)
     return checkValidStatusCode (response)
-
-
-# In[ ]:
 
 
 
