@@ -18,7 +18,8 @@ def send_template_message (recipientList, api_key, domain, sendDomain, template)
 		data={"from": f"Scottylabs <mailgun@{sendDomain}>",
 			"to": recipientList,
 			"subject": "Hello from Scottylabs!",
-			f"template": {template}
+			f"template": {template},
+			"v:test" : "test"
 			})
 
 
