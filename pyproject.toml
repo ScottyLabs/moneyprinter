@@ -1,0 +1,13 @@
+[project]
+name = "moneyprinter"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "openai>=1.0.0",
+    "exa_py>=1.0.0",
+    "requests>=2.31.0",
+    "pandas>=2.0.0",
+    "dotenv>=0.9.9",
+]
